@@ -1,0 +1,12 @@
+Source: ros-melodic-fkie-potree-rviz-plugin
+Section: misc
+Priority: extra
+Maintainer: Timo Röhling <timo.roehling@fkie.fraunhofer.de>
+Build-Depends: debhelper (>= 9.0.0), libboost-all-dev, libjsoncpp-dev, qtbase5-dev, ros-melodic-catkin, ros-melodic-rviz
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-melodic-fkie-potree-rviz-plugin
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, libboost-all-dev, libqt5core5a, libqt5gui5, libqt5widgets5, ros-melodic-media-export, ros-melodic-rviz
+Description: Render large point clouds in rviz
