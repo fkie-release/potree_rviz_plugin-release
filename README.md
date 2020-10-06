@@ -1,3 +1,26 @@
+## fkie_potree_rviz_plugin (noetic) - 1.0.1-1
+
+The packages in the `fkie_potree_rviz_plugin` repository were released into the `noetic` distro by running `/usr/bin/bloom-release -n -r noetic fkie_potree_rviz_plugin` on `Tue, 06 Oct 2020 10:50:07 -0000`
+
+The `fkie_potree_rviz_plugin` package was released.
+
+Version of package(s) in repository `fkie_potree_rviz_plugin`:
+
+- upstream repository: https://github.com/fkie/potree_rviz_plugin.git
+- release repository: unknown
+- rosdistro version: `null`
+- old version: `null`
+- new version: `1.0.1-1`
+
+Versions of tools used:
+
+- bloom version: `0.10.0`
+- catkin_pkg version: `0.4.23`
+- rosdep version: `0.19.0`
+- rosdistro version: `0.8.3`
+- vcstools version: `0.1.42`
+
+
 ## fkie_potree_rviz_plugin (kinetic) - 1.0.1-1
 
 The packages in the `fkie_potree_rviz_plugin` repository were released into the `kinetic` distro by running `/usr/bin/bloom-release -r kinetic fkie_potree_rviz_plugin` on `Tue, 06 Oct 2020 10:45:04 -0000`
