@@ -1,7 +1,7 @@
 ############################################################################
 #
 # fkie_potree_rviz_plugin
-# Copyright © 2018 Fraunhofer FKIE
+# Copyright © 2018-2023 Fraunhofer FKIE
 # Author: Timo Röhling
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,9 +20,6 @@
 #
 cmake_minimum_required(VERSION 3.1)
 project(fkie_potree_rviz_plugin)
-
-set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 ###############################################
 # Find catkin macros, packages, and libraries #
@@ -58,7 +55,6 @@ catkin_package(
 #########
 
 add_definitions(-DQT_NO_KEYWORDS)
-
 include_directories(SYSTEM
   ${catkin_INCLUDE_DIRS}
   ${QT_INCLUDE_DIRS}
@@ -66,6 +62,8 @@ include_directories(SYSTEM
 )
 add_library(${PROJECT_NAME}
   src/cloud_loader.cpp
+  src/cloud_loader_1.cpp
+  src/cloud_loader_2.cpp
   src/cloud_meta_data.cpp
   src/loading_thread.cpp
   src/potree_display.cpp
@@ -76,13 +74,17 @@ add_dependencies(${PROJECT_NAME}
   ${${PROJECT_NAME}_EXPORTED_TARGETS}
   ${catkin_EXPORTED_TARGETS}
 )
+set_target_properties(${PROJECT_NAME} PROPERTIES
+  CXX_VISIBILITY_PRESET "hidden"
+  VISIBILITY_INLINES_HIDDEN ON
+)
 target_link_libraries(${PROJECT_NAME}
   jsoncpp_lib
   ${Boost_LIBRARIES}
   ${QT_LIBRARIES}
   ${catkin_LIBRARIES}
 )
-
+target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_11)
 ###########
 # Install #
 ###########
