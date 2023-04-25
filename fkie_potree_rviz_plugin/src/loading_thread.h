@@ -1,7 +1,7 @@
 /****************************************************************************
  *
  * fkie_potree_rviz_plugin
- * Copyright © 2018 Fraunhofer FKIE
+ * Copyright © 2018-2023 Fraunhofer FKIE
  * Author: Timo Röhling
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,11 +20,12 @@
 #ifndef SRC_LOADING_THREAD_H_
 #define SRC_LOADING_THREAD_H_
 
-#include <memory>
-#include <thread>
-#include <mutex>
 #include <condition_variable>
+#include <functional>
+#include <memory>
+#include <mutex>
 #include <queue>
+#include <thread>
 
 namespace fkie_potree_rviz_plugin
 {
@@ -34,14 +35,16 @@ class CloudLoader;
 class LoadingThread
 {
 public:
-    explicit LoadingThread (const std::shared_ptr<CloudLoader>& loader);
+    using NodeCallback = std::function<void(const std::shared_ptr<PotreeNode>&)>;
+    explicit LoadingThread(const std::shared_ptr<CloudLoader>& loader);
     ~LoadingThread();
     void unscheduleAll();
-    void scheduleForLoading (const std::shared_ptr<PotreeNode>& node);
-    void setNodeLoadedCallback (const std::function<void()>& func);
+    void scheduleForLoading(const std::shared_ptr<PotreeNode>& node);
+    void setNodeLoadedCallback(const NodeCallback& func);
+
 private:
     void run();
-    std::function<void()> func_;
+    NodeCallback load_func_;
     bool running_;
     std::mutex mutex_;
     std::condition_variable cond_;
@@ -50,6 +53,6 @@ private:
     std::thread thread_;
 };
 
-} // namespace fkie_rviz_plugin_potree
+}  // namespace fkie_potree_rviz_plugin
 
 #endif /* SRC_LOADING_THREAD_H_ */
