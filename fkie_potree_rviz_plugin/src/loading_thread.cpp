@@ -1,7 +1,7 @@
 /****************************************************************************
  *
  * fkie_potree_rviz_plugin
- * Copyright © 2018 Fraunhofer FKIE
+ * Copyright © 2018-2023 Fraunhofer FKIE
  * Author: Timo Röhling
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,16 +17,17 @@
  * limitations under the License.
  *
  ****************************************************************************/
-#include <functional>
-#include "cloud_loader.h"
 #include "loading_thread.h"
+
+#include "cloud_loader.h"
 #include "potree_node.h"
 
 namespace fkie_potree_rviz_plugin
 {
 
-LoadingThread::LoadingThread (const std::shared_ptr<CloudLoader>& loader)
-: running_(true), loader_(loader), thread_(std::bind(&LoadingThread::run, this))
+LoadingThread::LoadingThread(const std::shared_ptr<CloudLoader>& loader)
+    : running_(true), loader_(loader),
+      thread_(std::bind(&LoadingThread::run, this))
 {
 }
 
@@ -36,19 +37,21 @@ LoadingThread::~LoadingThread()
     running_ = false;
     cond_.notify_all();
     lock.unlock();
-    if (thread_.joinable()) thread_.join();
+    if (thread_.joinable())
+        thread_.join();
 }
 
 void LoadingThread::unscheduleAll()
 {
     std::lock_guard<std::mutex> lock{mutex_};
-    while (!need_to_load_.empty()) need_to_load_.pop();
+    while (!need_to_load_.empty())
+        need_to_load_.pop();
 }
 
-void LoadingThread::setNodeLoadedCallback(const std::function<void()>& func)
+void LoadingThread::setNodeLoadedCallback(const NodeCallback& func)
 {
     // This function gets called whenever a new node has been loaded
-    func_ = func;
+    load_func_ = func;
 }
 
 void LoadingThread::scheduleForLoading(const std::shared_ptr<PotreeNode>& node)
@@ -66,16 +69,19 @@ void LoadingThread::run()
         while (need_to_load_.empty())
         {
             cond_.wait(lock);
-            if (!running_) return;
+            if (!running_)
+                return;
         }
         std::shared_ptr<PotreeNode> node = need_to_load_.front();
         need_to_load_.pop();
-        if (node->isLoaded()) continue;
+        if (node->isLoaded())
+            continue;
         lock.unlock();
         loader_->loadPoints(node);
-        if (func_) func_();
+        if (load_func_)
+            load_func_(node);
         lock.lock();
     }
 }
 
-}
+}  // namespace fkie_potree_rviz_plugin
