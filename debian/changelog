@@ -1,0 +1,33 @@
+ros-noetic-fkie-potree-rviz-plugin (2.0.1-1focal) focal; urgency=high
+
+  * Improve Potree folder selection
+    Use a specialized path property Instead of a generic text property,
+    so we can also have a file dialog to pick a folder.
+  * Explicitly reject unsupported tree encodings
+  * Contributors: Timo Röhling
+
+ -- Timo Röhling <timo.roehling@fkie.fraunhofer.de>  Tue, 04 Jul 2023 22:00:00 -0000
+
+ros-noetic-fkie-potree-rviz-plugin (2.0.0-1focal) focal; urgency=high
+
+  * Add support for Potree 1.8 and 2.0 formats
+  * Add automatic unloading of unused nodes to limit memory usage
+  * Fix compatibility with Ubuntu 20.04
+  * Improve splat rendering
+  * Contributors: Timo Röhling
+
+ -- Timo Röhling <timo.roehling@fkie.fraunhofer.de>  Mon, 24 Apr 2023 22:00:00 -0000
+
+ros-noetic-fkie-potree-rviz-plugin (1.0.1-1focal) focal; urgency=high
+
+  * Improve cone rendering
+
+ -- Timo Röhling <timo.roehling@fkie.fraunhofer.de>  Mon, 05 Oct 2020 22:00:00 -0000
+
+ros-noetic-fkie-potree-rviz-plugin (1.0.0-1focal) focal; urgency=high
+
+  * Initial release
+
+ -- Timo Röhling <timo.roehling@fkie.fraunhofer.de>  Thu, 31 Jan 2019 23:00:00 -0000
+
+
